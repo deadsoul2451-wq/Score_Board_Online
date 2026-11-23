@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choice</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand">Welcome To Score Board Website</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="Score_Board.html">Home</a>
+                <a class="nav-link" href="About.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-4">Score Board Settings</h2>
+
+        <div class="card shadow p-4">
+            <h4 class="mb-3">Participant Selection</h4>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">Participant 1</label>
+                    <select class="form-select participant">
+                        <option value="Peserta 1">Peserta 1</option>
+                        <option value="Peserta 2">Peserta 2</option>
+                        <option value="Peserta 3">Peserta 3</option>
+                        <option value="Peserta 4">Peserta 4</option>
+                        <option value="">Kosong</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Participant 2</label>
+                    <select class="form-select participant">
+                        <option value="Peserta 2">Peserta 2</option>
+                        <option value="Peserta 1">Peserta 1</option>
+                        <option value="Peserta 3">Peserta 3</option>
+                        <option value="Peserta 4">Peserta 4</option>
+                        <option value="">Kosong</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Participant 3</label>
+                    <select class="form-select participant">
+                        <option value="Peserta 3">Peserta 3</option>
+                        <option value="Peserta 1">Peserta 1</option>
+                        <option value="Peserta 2">Peserta 2</option>
+                        <option value="Peserta 4">Peserta 4</option>
+                        <option value="">Kosong</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Participant 4</label>
+                    <select class="form-select participant">
+                        <option value="Peserta 4">Peserta 4</option>
+                        <option value="Peserta 1">Peserta 1</option>
+                        <option value="Peserta 2">Peserta 2</option>
+                        <option value="Peserta 3">Peserta 3</option>
+                        <option value="">Kosong</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <hr class="my-4">
+
+            <h4 class="mb-3">Point Settings</h4>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">
+                        <span class="text-success fw-bold">Add Points (+)</span>
+                    </label>
+
+                    <select id="addPoint" class="form-select">
+                        <option value="1">+1</option>
+                        <option value="2">+2</option>
+                        <option value="5">+5</option>
+                        <option value="10">+10</option>
+                        <option value="20">+20</option>
+                        <option value="25">+25</option>
+                        <option value="50">+50</option>
+                        <option value="100">+100</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">
+                        <span class="text-danger fw-bold">Subtract Points (-)</span>
+                    </label>
+
+                    <select id="minusPoint" class="form-select">
+                        <option value="1">-1</option>
+                        <option value="2">-2</option>
+                        <option value="5">-5</option>
+                        <option value="10">-10</option>
+                        <option value="20">-20</option>
+                        <option value="25">-25</option>
+                        <option value="50">-50</option>
+                        <option value="100">-100</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="button" class="btn btn-success btn-lg"
+                        onclick="startScore()">
+                    Start Score Board
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function startScore() {
+
+            const participants = 
+                document.querySelectorAll(".participant");
+
+            const names = [];
+
+            participants.forEach(select => {
+                names.push(select.value);
+            });
+
+            const activeNames = names.filter(name => name !== "");
+
+            // Cegah nama peserta yang sama
+            if (new Set(activeNames).size !== activeNames.length) {
+                alert("Nama peserta tidak boleh sama!");
+                return;
+            }
+
+            if (activeNames.length < 2) {
+                alert("Minimal harus ada 2 peserta!");
+                return;
+            }
+
+            const settings = {
+                participants: activeNames,
+                addPoint: document.getElementById("addPoint").value,
+                minusPoint: document.getElementById("minusPoint").value
+            };
+
+            localStorage.setItem(
+                "scoreSettings",
+                JSON.stringify(settings)
+            );
+
+            window.location.href = "score.html";
+        }
+    </script>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

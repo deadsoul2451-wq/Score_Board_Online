@@ -1,0 +1,15 @@
+.banner{
+height: 80vh;
+background: linear-gradient(rgba(0,0,0,0.5)), url('Background/item.jpg');
+background-size: 100% 100%;
+color: rgb(255, 255, 255);
+background-position: center;
+}
+
+.banner-contant{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
